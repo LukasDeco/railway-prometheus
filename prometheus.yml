@@ -1,34 +1,31 @@
 global:
-  scrape_interval:     15s # By default, scrape targets every 15 seconds.
+  scrape_interval: 15s # By default, scrape targets every 15 seconds.
 
-  # Attach these labels to any time series or alerts when communicating with
-  # external systems (federation, remote storage, Alertmanager).
   external_labels:
-    monitor: 'railway-prom'
+    monitor: "railway-prom"
 
-# A scrape configuration containing exactly one endpoint to scrape:
-# Here it's Prometheus itself.
 scrape_configs:
-  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
-  - job_name: 'prometheus'
-
-    # Override the global default and scrape targets from this job every 5 seconds.
-    scrape_interval: 5s
-
+  - job_name: "prometheus"
+    scrape_interval: 15s
     static_configs:
-      - targets: ['localhost:9090']
-  
-  - job_name: 'demo_application'
-    scrape_interval: 5s
+      - targets: ["localhost:9090"]
+
+  - job_name: "postgres"
+    scrape_interval: 15s
     static_configs:
-      - targets: ['demo.do.prometheus.io:9090']
+      - targets: ["roundhouse.proxy.rlwy.net:38862"]
 
-  # - job_name: 'postgres'
-  #   scrape_interval: 5s
+  # - job_name: "indexer"
+  #   scrape_interval: 15s
   #   static_configs:
-  #     - targets: ['localhost:9187']
+  #     - targets: ["demo.do.prometheus.io:9090"]
 
-  # - job_name: 'mysql'
-  #   scrape_interval: 5s
+  # - job_name: "hasura_prometheus_exporter"
+  #   scrape_interval: 60s ## Recommended scrape interval is 60s
+  #   metrics_path: "/metrics" ## Replace with metrics Path of the connection URL
+  #   scheme: "https" ## Replace with the scheme of the connection URL
+  #   basic_auth:
+  #     username: "" ## Replace with project ID
+  #     password: "" ## Replace with Access Token
   #   static_configs:
-  #     - targets: ['localhost:9104']
+  #     - targets: ["graph-api.themetadao.org"]
