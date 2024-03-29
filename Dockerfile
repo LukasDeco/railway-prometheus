@@ -1,19 +1,17 @@
 FROM prom/prometheus
+LABEL maintainer="Your Name <your.email@example.com>"
 
-# copy the Prometheus configuration file
+# Install Supervisor
+RUN apt-get update && apt-get install -y supervisor
+
+# Copy Prometheus configuration file
 COPY prometheus.yml /etc/prometheus/prometheus.yml
 
-# expose the Prometheus server port
-EXPOSE 9090
+# Copy Supervisor configuration files
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-# set the entrypoint command
-USER root
-ENTRYPOINT [ "/bin/prometheus" ]
-CMD        [ "--config.file=/etc/prometheus/prometheus.yml", \
-             "--storage.tsdb.path=/prometheus", \
-             "--storage.tsdb.retention=365d", \
-             "--web.console.libraries=/usr/share/prometheus/console_libraries", \
-             "--web.console.templates=/usr/share/prometheus/consoles", \
-             "--web.external-url=http://localhost:9090", \
-             "--log.level=info"]
- 
+# Expose ports for Prometheus and Grafana
+EXPOSE 9090 3000
+
+# Set the entrypoint to Supervisor
+ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

@@ -10,10 +10,10 @@ scrape_configs:
     static_configs:
       - targets: ["localhost:9090"]
 
-  - job_name: "postgres"
-    scrape_interval: 15s
-    static_configs:
-      - targets: ["roundhouse.proxy.rlwy.net:38862"]
+  # - job_name: "postgres"
+  #   scrape_interval: 15s
+  #   static_configs:
+  #     - targets: ["roundhouse.proxy.rlwy.net:38862"]
 
   # - job_name: "indexer"
   #   scrape_interval: 15s
