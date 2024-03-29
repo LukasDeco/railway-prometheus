@@ -15,10 +15,10 @@ scrape_configs:
   #   static_configs:
   #     - targets: ["roundhouse.proxy.rlwy.net:38862"]
 
-  # - job_name: "indexer"
-  #   scrape_interval: 15s
-  #   static_configs:
-  #     - targets: ["demo.do.prometheus.io:9090"]
+  - job_name: "futarchy-indexer"
+    scrape_interval: 15s
+    static_configs:
+      - targets: ["indexer.railway.internal:8080"]
 
   # - job_name: "hasura_prometheus_exporter"
   #   scrape_interval: 60s ## Recommended scrape interval is 60s
