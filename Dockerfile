@@ -22,8 +22,6 @@ ADD prometheus.yml /etc/prometheus/prometheus.yml
 
 RUN grafana-cli admin reset-admin-password ${GRAFANA_ADMIN_PASSWORD}
 
-VOLUME ["/var/lib/grafana", "/etc/prometheus/data"]
-
 # Set the entrypoint to Supervisor
 ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
 
